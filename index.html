@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contrôle technique Val-d'Oise : documentation du jeu de données</title>
+<meta name="description" content="Documentation du jeu de données des centres de contrôle technique du Val-d'Oise par commune (annuaire DGCCRF, octobre 2026) : sources, colonnes, méthode, licence.">
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:46rem;margin:2rem auto;padding:0 1rem;line-height:1.6;color:#1a1a1a;background:#fff}
+h1{font-size:1.6rem;line-height:1.25}h2{font-size:1.2rem;margin-top:2rem}
+table{border-collapse:collapse;width:100%;font-size:.92rem}th,td{border:1px solid #ccc;padding:.35rem .5rem;text-align:left;vertical-align:top}
+code{background:#f3f3f3;padding:0 .25rem;border-radius:3px}footer{margin-top:3rem;font-size:.85rem;color:#555}
+</style>
+</head>
+<body>
+<h1>Centres de contrôle technique du Val-d'Oise par commune (DGCCRF, octobre 2026)</h1>
+<p>Ce site documente le jeu de données publié dans le dépôt <a href="https://github.com/oparebrise95/controle-technique-val-doise">oparebrise95/controle-technique-val-doise</a>. Le Val-d'Oise (95) compte 85 centres de contrôle technique dans l'annuaire national de la DGCCRF, répartis dans 44 communes (extraction du 29/10/2026). L'extrait régional publié par la région Île-de-France en compte 81 pour le département. Les deux chiffres sont donnés tels quels.</p>
+
+<h2>Sources</h2>
+<ul>
+<li>DGCCRF, <a href="https://data.economie.gouv.fr/explore/dataset/annuaire-centres-controle-technique/">Annuaire des centres de contrôle technique</a> (national), version du 29/10/2026.</li>
+<li>DGCCRF, <a href="https://data.iledefrance.fr/explore/dataset/annuaire-des-centres-de-controle-technique-franciliens/">Annuaire des centres de contrôle technique franciliens</a>, version du 28/10/2026.</li>
+<li>Licence des deux sources : <a href="https://www.etalab.gouv.fr/wp-content/uploads/2017/04/ETALAB-Licence-Ouverte-v2.0.pdf">Licence Ouverte v2.0 (Etalab)</a>. Le jeu dérivé est publié sous la même licence.</li>
+</ul>
+
+<h2>Fichiers et colonnes</h2>
+<table>
+<tr><th>Fichier</th><th>Contenu</th><th>Lignes</th></tr>
+<tr><td><code>data/centres_controle_technique_95_2026-10-29.csv</code></td><td>Centres du département 95 dans l'annuaire national : code postal, commune, catégories de véhicules, énergies. Les noms, adresses et SIRET restent dans la source.</td><td>85</td></tr>
+<tr><td><code>data/communes_95_centre_le_plus_proche_2026-10-29.csv</code></td><td>48 communes du Val-d'Oise : code INSEE, nombre de centres dans la commune, commune du centre le plus proche, distance à vol d'oiseau en km.</td><td>48</td></tr>
+</table>
+<p>Séparateur <code>;</code>, encodage UTF-8.</p>
+
+<h2>Méthode</h2>
+<ol>
+<li>Filtre de l'annuaire national sur <code>code_departement = 95</code>, dédoublonnage par SIRET.</li>
+<li>Noms de communes unifiés (casse, apostrophes).</li>
+<li>Distance : formule de Haversine entre le centre géographique de la commune (<a href="https://geo.api.gouv.fr/">geo.api.gouv.fr</a>) et les coordonnées du centre de contrôle (annuaire national).</li>
+<li>Les 48 communes sont celles de la zone d'intervention du producteur du jeu ; 35 d'entre elles ont au moins un centre sur leur territoire.</li>
+</ol>
+
+<h2>Bon usage</h2>
+<p>Un annuaire évolue : vérifier la source avant tout usage. La distance à vol d'oiseau donne un ordre de grandeur ; la distance routière est plus longue. Le tableau commune par commune, avec les centres les plus proches, est consultable sur la page <a href="https://oparebrise95.fr/controle-technique-val-doise-dgccrf/">contrôle technique dans le Val-d'Oise d'après l'annuaire DGCCRF</a>.</p>
+
+<footer>Jeu préparé par O'PAREBRISE 95 (IMK AUTOS SAS, Franconville), producteur du jeu : <a href="https://oparebrise95.fr/">oparebrise95.fr</a>. Mise à jour de cette documentation : 06/11/2026.</footer>
+</body>
+</html>
